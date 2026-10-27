@@ -1,0 +1,7 @@
+# TKBNet robots.txt
+User-agent: *
+Allow: /
+Disallow: /design/
+Disallow: /404.html
+
+Sitemap: https://tkbnet.support/sitemap.xml
