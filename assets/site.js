@@ -22,7 +22,7 @@ d.addEventListener('DOMContentLoaded',function(){
  /* legal toc highlight */
  var tl=$$('.toc a[href^="#"]');if(tl.length&&'IntersectionObserver' in window){var so=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){tl.forEach(function(a){a.classList.toggle('act',a.getAttribute('href')==='#'+e.target.id)})}})},{rootMargin:'-20% 0px -70% 0px'});$$('.lsec').forEach(function(s){so.observe(s)})}
  /* cookie consent */
- var ck=$('#cookie');if(ck){var st=ls('tkb-consent');function save(a,b){ls('tkb-consent',JSON.stringify({analytics:a,advertising:b,t:Date.now()}));ck.hidden=true;window.tkbConsent={analytics:a,advertising:b}}
+ var ck=$('#cookie');if(ck){var st=ls('tkb-consent');function save(a,b){ls('tkb-consent',JSON.stringify({analytics:a,advertising:b,t:Date.now()}));ck.hidden=true;window.tkbConsent={analytics:a,advertising:b};if(window.gtag){var g=b?'granted':'denied',n=a?'granted':'denied';gtag('consent','update',{ad_storage:g,ad_user_data:g,ad_personalization:g,analytics_storage:n})}}
   if(!st)ck.hidden=false;else{try{window.tkbConsent=JSON.parse(st)}catch(e){ck.hidden=false}}
   var gpc=navigator.globalPrivacyControl;
   $$('[data-c]',ck).forEach(function(bt){bt.addEventListener('click',function(){var c=bt.getAttribute('data-c');if(c==='all')save(true,!gpc);else if(c==='none')save(false,false);else{var o=$('#cookie-opts');if(o.hidden){o.hidden=false;bt.textContent='Save choices';bt.setAttribute('data-c','save')}}if(c==='save')save($('#c-an').checked,$('#c-ad').checked&&!gpc)})});
