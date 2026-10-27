@@ -49,3 +49,17 @@ d.addEventListener('DOMContentLoaded',function(){
   setTimeout(open,DELAY);
  });
 })();
+
+(function(){document.addEventListener('DOMContentLoaded',function(){
+ var f=document.querySelector('.triage');if(!f)return;var v=document.getElementById('verdict');
+ function val(n){var c=f.querySelector('input[name='+n+']:checked');return c?c.value:null}
+ function show(cls,h,p){v.className='verdict '+cls;v.innerHTML='<strong>'+h+'</strong><p>'+p+'</p>'+(cls?'<a class="btn btn-sm" href="tel:+18335814309">Talk it through: (833) 581-4309</a>':'')}
+ function calc(){var q1=val('q1'),q2=val('q2'),q3=val('q3')||'u',q4=val('q4');if(!q1||!q2||!q4){v.className='verdict';v.innerHTML='<strong>Answer the questions to see a suggestion.</strong>';return}
+  if(q4==='y')show('local','Probably not an outage','Some devices still have internet, so the connection is working. Look at the affected device or its Wi-Fi settings: forget and rejoin the network, restart the device, and check you are on the right Wi-Fi band.');
+  else if(q2==='y'&&q3==='y')show('prov','Likely an outage on your provider&rsquo;s side','Your equipment is reporting no connection and an outage is reported nearby. Restart once in the correct order, then report it to your provider and wait for restoration. We can help you prepare what to tell them.');
+  else if(q2==='y'&&q1==='y')show('prov','Possibly an outage or line issue','Everything is offline and your equipment shows a warning light. Restart modem then router, check your provider&rsquo;s status from your phone, and report it if it persists. Only your provider can restore their network.');
+  else if(q2==='n'&&q1==='y')show('local','Likely a router or equipment problem','Your equipment lights look normal but nothing connects. Test by cable, restart in order and check for loose cables. This is something we can help you work through.');
+  else if(q1==='n')show('local','Likely a Wi-Fi or device problem','Wired internet works, so the connection itself is up. Restart the router, check Wi-Fi settings and test again.');
+  else show('mix','Not clear yet','Run the restart checklist, test by Ethernet cable and check your provider&rsquo;s status page. If you are still stuck, we can help you work out which side the problem is on.')}
+ f.addEventListener('change',calc);
+});})();
